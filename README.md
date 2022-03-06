@@ -1,5 +1,7 @@
 # TodoApp
 
+Todo management using phoenix and elixir.
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
