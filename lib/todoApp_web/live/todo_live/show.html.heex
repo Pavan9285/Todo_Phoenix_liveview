@@ -29,7 +29,7 @@
     <strong>Priority:</strong>
     <%= @todo.priority %>
   </li>
-
+<span><%= live_patch "add_Comment", to: Routes.comment_index_path(@socket, :new, todo_id: @todo.id) %></span>
 </ul>
 
 <span><%= live_patch "Edit", to: Routes.todo_show_path(@socket, :edit, @todo), class: "button" %></span> |

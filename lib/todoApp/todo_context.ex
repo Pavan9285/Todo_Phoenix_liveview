@@ -51,7 +51,7 @@ defmodule TodoApp.TodoContext do
   """
   def create_todo(attrs \\ %{}) do
     %Todo{}
-    |> Todo.changeset(attrs)
+    |> Todo.create_changeset(attrs)
     |> Repo.insert()
   end
 

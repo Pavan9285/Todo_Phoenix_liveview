@@ -15,7 +15,7 @@ defmodule TodoApp.CommentContext.Comment do
   @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:title, :rating])
-    |> validate_required([:title, :rating])
+    |> cast(attrs, [:title, :rating, :todo_id])
+    |> validate_required([:title, :rating, :todo_id])
   end
 end

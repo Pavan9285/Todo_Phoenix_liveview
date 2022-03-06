@@ -20,9 +20,10 @@ defmodule TodoAppWeb.CommentLive.Index do
     |> assign(:comment, CommentContext.get_comment!(id))
   end
 
-  defp apply_action(socket, :new, _params) do
+  defp apply_action(socket, :new, params) do
     socket
     |> assign(:page_title, "New Comment")
+    |> assign(:todo_id, String.to_integer(params["todo_id"]))
     |> assign(:comment, %Comment{})
   end
 

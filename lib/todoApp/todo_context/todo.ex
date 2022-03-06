@@ -17,8 +17,8 @@ defmodule TodoApp.TodoContext.Todo do
   @doc false
   def changeset(todo, attrs) do
     todo
-    |> cast(attrs, [:title, :completed, :priority, :user_id])
-    |> validate_required([:title, :completed, :priority, :user_id])
+    |> cast(attrs, [:title, :completed, :priority])
+    |> validate_required([:title, :completed, :priority])
   end
 
   def create_changeset(todo, attrs) do
