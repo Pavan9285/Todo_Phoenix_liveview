@@ -14,6 +14,8 @@
   </.modal>
 <% end %>
 
+<span><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></span>
+
 <table>
   <thead>
     <tr>
@@ -41,4 +43,3 @@
   </tbody>
 </table>
 
-<span><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></span>

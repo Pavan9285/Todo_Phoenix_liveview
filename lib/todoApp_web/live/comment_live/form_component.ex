@@ -30,10 +30,13 @@ defmodule TodoAppWeb.CommentLive.FormComponent do
   defp save_comment(socket, :edit, comment_params) do
     case CommentContext.update_comment(socket.assigns.comment, comment_params) do
       {:ok, _comment} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Comment updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+        {
+          :noreply,
+          socket
+          |> put_flash(:info, "Comment updated successfully")
+          |> push_redirect(to: "/todos/#{socket.assigns.todo_id}")
+          #  |> push_redirect(to: socket.assigns.return_to)
+        }
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
@@ -43,10 +46,13 @@ defmodule TodoAppWeb.CommentLive.FormComponent do
   defp save_comment(socket, :new, comment_params) do
     case CommentContext.create_comment(comment_params) do
       {:ok, _comment} ->
-        {:noreply,
-         socket
-         |> put_flash(:info, "Comment created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+        {
+          :noreply,
+          socket
+          |> put_flash(:info, "Comment created successfully")
+          |> push_redirect(to: "/todos/#{socket.assigns.todo_id}")
+          #  |> push_redirect(to: socket.assigns.return_to)
+        }
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

@@ -1,7 +1,7 @@
 <h1>Listing Comments</h1>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.comment_index_path(@socket, :index)}>
+  <.modal return_to={Routes.todo_show_path(@socket, :show, @todo)}>
     <.live_component
       module={TodoAppWeb.CommentLive.FormComponent}
       id={@comment.id || :new}
@@ -9,7 +9,7 @@
       action={@live_action}
       comment={@comment}
       todo_id={@todo_id}
-      return_to={Routes.comment_index_path(@socket, :index)}
+      return_to={Routes.todo_show_path(@socket, :show, @todo)}
     />
   </.modal>
 <% end %>

@@ -3,6 +3,7 @@ defmodule TodoAppWeb.CommentLive.Index do
 
   alias TodoApp.CommentContext
   alias TodoApp.CommentContext.Comment
+  alias TodoApp.TodoContext
 
   @impl true
   def mount(_params, _session, socket) do
@@ -20,10 +21,12 @@ defmodule TodoAppWeb.CommentLive.Index do
     |> assign(:comment, CommentContext.get_comment!(id))
   end
 
+  # Passes the todo_id using params....
   defp apply_action(socket, :new, params) do
     socket
     |> assign(:page_title, "New Comment")
     |> assign(:todo_id, String.to_integer(params["todo_id"]))
+    |> assign(:todo, TodoContext.get_todo!(String.to_integer(params["todo_id"])))
     |> assign(:comment, %Comment{})
   end
 
