@@ -1,6 +1,6 @@
 <h1>Listing Comments</h1>
 
-<%= if @live_action in [:new, :edit] do %>
+<%= if @live_action in [:new] do %>
   <.modal return_to={Routes.todo_show_path(@socket, :show, @todo)}>
     <.live_component
       module={TodoAppWeb.CommentLive.FormComponent}
@@ -14,12 +14,27 @@
   </.modal>
 <% end %>
 
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.comment_show_path(@socket, :show, @comment)}>
+    <.live_component
+      module={TodoAppWeb.CommentLive.FormComponent}
+      id={@comment.id || :new}
+      title={@page_title}
+      action={@live_action}
+      comment={@comment}
+      todo_id={@comment.todo_id}
+      return_to={Routes.comment_show_path(@socket, :show, @comment)}
+    />
+  </.modal>
+<% end %>
+
+
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Rating</th>
-
+      <th>Todo_id</th>
       <th></th>
     </tr>
   </thead>
@@ -28,6 +43,8 @@
       <tr id={"comment-#{comment.id}"}>
         <td><%= comment.title %></td>
         <td><%= comment.rating %></td>
+        <td><%= comment.todo_id %></td>
+        
 
         <td>
           <span><%= live_redirect "Show", to: Routes.comment_show_path(@socket, :show, comment) %></span>
@@ -38,5 +55,3 @@
     <% end %>
   </tbody>
 </table>
-
-<span><%= live_patch "New Comment", to: Routes.comment_index_path(@socket, :new) %></span>

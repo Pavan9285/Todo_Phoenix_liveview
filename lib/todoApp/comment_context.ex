@@ -101,4 +101,9 @@ defmodule TodoApp.CommentContext do
   def change_comment(%Comment{} = comment, attrs \\ %{}) do
     Comment.changeset(comment, attrs)
   end
+
+  def get_comments_by_todo_id(todo_id) do
+    query = from Comment, where: [todo_id: ^todo_id]
+    Repo.all(query)
+  end
 end

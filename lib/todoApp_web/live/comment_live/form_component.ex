@@ -34,8 +34,7 @@ defmodule TodoAppWeb.CommentLive.FormComponent do
           :noreply,
           socket
           |> put_flash(:info, "Comment updated successfully")
-          |> push_redirect(to: "/todos/#{socket.assigns.todo_id}")
-          #  |> push_redirect(to: socket.assigns.return_to)
+          |> push_redirect(to: socket.assigns.return_to)
         }
 
       {:error, %Ecto.Changeset{} = changeset} ->
