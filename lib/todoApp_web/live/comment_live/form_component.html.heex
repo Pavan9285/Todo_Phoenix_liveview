@@ -18,7 +18,7 @@
     <%= error_tag f, :title %>
   
     <%= label f, :rating %>
-    <%= number_input f, :rating %>
+    <%= select f, :rating, 1..5 %>
     <%= error_tag f, :rating %>
   
     <div>

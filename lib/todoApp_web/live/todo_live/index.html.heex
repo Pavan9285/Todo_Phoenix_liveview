@@ -14,7 +14,9 @@
   </.modal>
 <% end %>
 
-<span><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></span>
+<span><%= live_patch "New Todo", to: Routes.todo_index_path(@socket, :new) %></span> | 
+<span><%= live_redirect "Comments", to: Routes.comment_index_path(@socket, :index) %></span>
+
 
 <table>
   <thead>
