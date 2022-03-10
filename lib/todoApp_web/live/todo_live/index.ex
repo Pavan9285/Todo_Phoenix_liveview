@@ -4,10 +4,19 @@ defmodule TodoAppWeb.TodoLive.Index do
   alias TodoApp.TodoContext
   alias TodoApp.TodoContext.Todo
 
+  alias TodoApp.TodoContext
+
   @impl true
   def mount(_params, session, socket) do
     socket = assign_defaults(session, socket)
-    {:ok, assign(socket, :todos, list_todos())}
+    if(connected?(socket), do: TodoContext.subscribe())
+
+    {:ok, assign(socket, :todos, list_of_todos_by_user_id(socket)),
+     temporary_assigns: [todos: []]}
+  end
+
+  defp list_of_todos_by_user_id(socket) do
+    TodoContext.todos_by_user(socket.assigns.current_user.id)
   end
 
   @impl true
@@ -44,4 +53,21 @@ defmodule TodoAppWeb.TodoLive.Index do
   defp list_todos do
     TodoContext.list_todos()
   end
+
+  @impl true
+  def handle_info({:todo_created, todo}, socket) do
+    {:noreply, update(socket, :todos, fn todos -> [todo | todos] end)}
+  end
+
+  def handle_info({:todo_updated, todo}, socket) do
+    {:noreply, update(socket, :todos, fn todos -> [todo | todos] end)}
+  end
+
+  def handle_info({:todo_deleted, todo}, socket) do
+    {:noreply, update(socket, :todos, fn todos -> todo.id != todos.id end)}
+  end
+
+  # def handle_info({:todo_deleted, todo}, socket) do
+  #   {:noreply, update(socket, :todos, list_todos())}
+  # end
 end
