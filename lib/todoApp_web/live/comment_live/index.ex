@@ -7,6 +7,7 @@ defmodule TodoAppWeb.CommentLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if(connected?(socket), do: CommentContext.subscribe())
     {:ok, assign(socket, :comments, list_comments())}
   end
 
@@ -47,4 +48,21 @@ defmodule TodoAppWeb.CommentLive.Index do
   defp list_comments do
     CommentContext.list_comments()
   end
+
+  @impl true
+  def handle_info({:comment_created, comment}, socket) do
+    {:noreply, update(socket, :comments, fn comments -> [comment | comments] end)}
+  end
+
+  def handle_info({:comment_updated, comment}, socket) do
+    {:noreply, update(socket, :comments, fn comments -> [comment | comments] end)}
+  end
+
+  def handle_info({:comment_deleted, comment}, socket) do
+    {:noreply, update(socket, :comments, fn comments -> comment.id != comments.id end)}
+  end
+
+  # def handle_info({:comment_deleted, comment}, socket) do
+  #   {:noreply, update(socket, :comments, list_comments())}
+  # end
 end

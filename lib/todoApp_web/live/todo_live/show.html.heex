@@ -33,10 +33,24 @@
 </ul>
 
 <h5> <b>Comments</b> </h5>
-<%= for comment <- @comments do%>
-  <li><b>comment:- </b><%= comment.title %> |
-  <b>rating:-</b> <%= comment.rating %></li>
-<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Comment</th>
+      <th>Rating</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="comments" phx-update="prepend">
+    <%= for comment <- @comments do%>
+      <.live_component module={TodoAppWeb.TodoLive.CommentComponent} id={comment.id} comment={comment} /> 
+    <% end %>
+  </tbody>
+</table>
+
+
 
 <span><%= live_patch "Edit", to: Routes.todo_show_path(@socket, :edit, @todo), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.todo_index_path(@socket, :index) %></span>

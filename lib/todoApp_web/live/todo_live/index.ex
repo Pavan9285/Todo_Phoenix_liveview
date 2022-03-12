@@ -4,8 +4,6 @@ defmodule TodoAppWeb.TodoLive.Index do
   alias TodoApp.TodoContext
   alias TodoApp.TodoContext.Todo
 
-  alias TodoApp.TodoContext
-
   @impl true
   def mount(_params, session, socket) do
     socket = assign_defaults(session, socket)
